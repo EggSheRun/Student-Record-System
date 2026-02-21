@@ -1,10 +1,5 @@
 <?php
+require_once __DIR__ . '/app/controllers/StudentController.php';
 
-require_once 'config/database.php';
-
-$database = new Database();
-$conn = $database->connect();
-
-if ($conn) {
-    echo "Connected Successfully!";
-}
+$controller = new StudentController();
+$controller->index();

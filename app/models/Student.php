@@ -1,13 +1,19 @@
 <?php
 
-class Student {
+require_once 'Model.php';
 
-private $id;
-private $name;
-private $age;
-private $course;
+class Student extends Model { // This 'extends' is the secret sauce!
+    private $id;
+    private $name;
+    private $age;
+    private $course;
 
-public function __construct($database) {
-    $this->conn = $database;
-}
+    // You can REMOVE the __construct here entirely. 
+    // It will automatically use the one from Model.php.
+
+    public static function all() {
+        $instance = new self(); // This triggers the database connection in Model.php
+        $stmt = $instance->conn->query("SELECT * FROM students");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
