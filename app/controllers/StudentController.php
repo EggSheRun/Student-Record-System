@@ -5,9 +5,15 @@ class StudentController {
     public function index() {
         // The Controller "asks" the Model for the data
         $students = Student::all();
-        $students = new Student();
-
-        // Then it "loads" the view and passes the data to it
         require_once 'app/views/students/index.php';
+    } 
+    public function create() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $name = $_POST['name'];
+            $age = $_POST['age'];
+            $course = $_POST['course'];
+
+            $students = new Student();
+        }
     }
 }

@@ -3,10 +3,10 @@
 require_once 'Model.php';
 
 class Student extends Model { // This 'extends' is the secret sauce!
-    private $id;
-    private $name;
-    private $age;
-    private $course;
+    public $name;
+    public $age;
+    public $course;
+
 
     // You can REMOVE the __construct here entirely. 
     // It will automatically use the one from Model.php.
