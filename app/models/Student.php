@@ -1,19 +1,38 @@
 <?php
+require 'Model.php';
 
-require_once 'Model.php';
+class Student extends Model {
+    private $table = 'students';
 
-class Student extends Model { // This 'extends' is the secret sauce!
-    public $name;
-    public $age;
-    public $course;
+    public function __construct() {
+    parent::__construct();
 
+    }
+    public function getAllStudents() {
+        $stmt = $this->conn->prepare("SELECT * FROM {$this->table}");
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+    
+    public function getStudentById($id) {
+        $stmt = $this->conn->prepare("SELECT * FROM {$this->table} WHERE id = :id");
+        $stmt->execute([':id' => $id]);
+        return $stmt->fetch();
+    }
 
-    // You can REMOVE the __construct here entirely. 
-    // It will automatically use the one from Model.php.
+    public function createStudent($data) {
+        $stmt = $this->conn->prepare("INSERT INTO {$this->table} (name, email, course, year_level, status) VALUES (:name, :email, :course, :year_level, :status)");
+        return $stmt->execute([
+            ':name' => $data['name'],
+            ':email' => $data['email'],
+            ':course' => $data['course'],
+            ':year_level' => $data['year_level'],
+            ':status' => $data['status'],
+        ]);
+    }
 
-    public static function all() {
-        $instance = new self(); // This triggers the database connection in Model.php
-        $stmt = $instance->conn->query("SELECT * FROM students");
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    public function deleteStudent($id) {
+        $stmt = $this->conn->prepare("DELETE FROM {$this->table} WHERE id = :id");
+        return $stmt->execute([':id => $id']);
     }
 }
