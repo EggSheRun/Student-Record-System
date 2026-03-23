@@ -35,4 +35,16 @@ class Student extends Model {
         $stmt = $this->conn->prepare("DELETE FROM {$this->table} WHERE id = :id");
         return $stmt->execute([':id => $id']);
     }
+
+    public function updateStudent($data) {
+        $stmt = $this->conn->prepare("UPDATE {$this->table} SET name = :name, email = :email, course = :course, year_level = :year_level, status = :status WHERE id = :id");
+        return $stmt->execute([
+            ':id' => $data['id'],
+            ':name' => $data['name'],
+            ':email' => $data['email'],
+            ':course' => $data['course'],
+            ':year_level' => $data['year_level'],
+            ':status' => $data['status'],
+        ]);
+    }
 }
