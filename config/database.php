@@ -13,7 +13,7 @@ public function connect() {
 $this->conn = null;
 try {
 
-    $dsn = "mysql:host=$this->host};dbname$this->database};charset=utf8mb4";
+    $dsn = "mysql:host={$this->host};dbname={$this->database};charset=utf8mb4";
 
     $options = [
         PDO::ATTR_ERRMODE => PDO ::ERRMODE_EXCEPTION,
